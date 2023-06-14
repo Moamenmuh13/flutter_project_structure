@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project_structure/shared/cubit/cubit.dart';
 
 Widget emptyArea({double height = 0.0, double width = 0.0}) => SizedBox(
       height: height,
@@ -60,7 +61,7 @@ Widget defaultTextForm({
         border: const OutlineInputBorder(),
       ),
     );
-Widget buildTasksItem(Map model
+Widget buildTasksItem(Map model, context
     ){
   return Padding(
     padding: const EdgeInsets.all(20.0),
@@ -70,16 +71,26 @@ Widget buildTasksItem(Map model
           child:Text(model['time']),
           backgroundColor: Colors.blue,) ,
         emptyArea(width: 20.0),
-        Container(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(model['title'] , style: TextStyle(fontSize: 20.0,color: Colors.black , fontWeight: FontWeight.bold),),
-              Text(model['date'] , style: TextStyle(fontSize: 16.0, color: Colors.grey , fontWeight: FontWeight.bold),)
-            ],
+        Expanded(
+          child: Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(model['title'] , style: TextStyle(fontSize: 20.0,color: Colors.black , fontWeight: FontWeight.bold),),
+                Text(model['date'] , style: TextStyle(fontSize: 16.0, color: Colors.grey , fontWeight: FontWeight.bold),),
+              ],
+            ),
           ),
-        )
+        ),
+        IconButton(onPressed: (){
+          AppCubit.get(context).updateTaskStatus(status: "done", id: model['id']);
+        }, icon: Icon(Icons.check_box)),
+        IconButton(onPressed: (){
+          AppCubit.get(context).updateTaskStatus(status: "archive", id: model['id']);
+
+        }, icon: Icon(Icons.archive)),
+
       ],
     ),
   );
