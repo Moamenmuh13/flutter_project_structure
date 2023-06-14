@@ -60,3 +60,27 @@ Widget defaultTextForm({
         border: const OutlineInputBorder(),
       ),
     );
+Widget buildTasksItem(Map model
+    ){
+  return Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: Row(
+      children: [
+        CircleAvatar(radius: 40.0,
+          child:Text(model['time']),
+          backgroundColor: Colors.blue,) ,
+        emptyArea(width: 20.0),
+        Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(model['title'] , style: TextStyle(fontSize: 20.0,color: Colors.black , fontWeight: FontWeight.bold),),
+              Text(model['date'] , style: TextStyle(fontSize: 16.0, color: Colors.grey , fontWeight: FontWeight.bold),)
+            ],
+          ),
+        )
+      ],
+    ),
+  );
+}
